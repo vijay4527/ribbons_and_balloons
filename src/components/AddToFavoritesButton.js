@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import styles from "@/app/[city]/l/[category]/page.module.css";
 import { ToastContainer, toast } from "react-toastify";
