@@ -2,30 +2,29 @@
 import React from 'react';
 import { redirect } from 'next/navigation'
 
-const Page = (city) => {
+// const Page = (city) => {
 
-  if (city !== "") {
-    return {
-      redirect: {
-        destination: `/${city}`,
-        permanent: false,
-      },
-    };
-  } else {
-    return {
-      redirect: {
-        destination: "/mumbai",
-        permanent: false,
-      },
-    };
-  }
-};
+//   if (city !== "") {
+//     return {
+//       redirect: {
+//         destination: `/${city}`,
+//         permanent: false,
+//       },
+//     };
+//   } else {
+//     return {
+//       redirect: {
+//         destination: "/mumbai",
+//         permanent: false,
+//       },
+//     };
+//   }
+// };
 
 const page = async({params})=>{
   const city = params.city || ""; 
 
-  const  data = await Page(city)
-  if(data){
+  if(city){
     redirect("/mumbai")
   }else{
     redirect("/mumbai")
