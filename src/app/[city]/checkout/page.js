@@ -768,8 +768,6 @@ const page = ({params}) => {
     </section>
     <ToastContainer />
     {/* <MapModal show={showModal} handleClose={handleCloseModal} /> */}
-
-
   </>  )
 }
 
