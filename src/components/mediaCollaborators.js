@@ -33,7 +33,7 @@ const mediaCollaborators = () => {
         setIsMounted(true);
       }
     
-    }, [session,isMounted]);
+    }, []);
   return (
     <>
     <div className="mediaCollabWrap">

@@ -33,7 +33,7 @@ const newLaunched = () => {
       setIsMounted(true);
     }
   
-  }, [session,isMounted]);
+  }, []);
 
   return (
     <>

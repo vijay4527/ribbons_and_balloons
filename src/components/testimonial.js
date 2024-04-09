@@ -34,7 +34,7 @@ const testimonial = () => {
         setIsMounted(true);
       }
     
-    }, [session,isMounted]);
+    }, []);
   return (
     <>
    
