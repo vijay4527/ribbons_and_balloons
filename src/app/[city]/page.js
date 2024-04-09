@@ -1,20 +1,17 @@
-import React from "react";
-import Banner from "@/components/banner";
-import Testimonials from "@/components/testimonial";
-import InstaPosts from "@/components/InstaPosts";
-import NewLaunches from "@/components/newLaunched";
-import MediaCollaborators from "@/components/mediaCollaborators";
-import Head from "@/components/Links/link";
+import React from 'react'
+import Banner from '@/components/banner';
+import Testimonials from "@/components/testimonial"
+import InstaPosts from '@/components/InstaPosts';
+import NewLaunches from "@/components/newLaunched"
+import MediaCollaborators from '@/components/mediaCollaborators';
 const page = () => {
   return (
     <>
-    <Head>
-    </Head>
-      <Banner />
-      <Testimonials />
-      <InstaPosts />
-      <NewLaunches />
-      <div className="cakeOfMonthWrap">
+    <Banner />
+     <Testimonials />
+     <InstaPosts />
+     <NewLaunches />
+     <div className="cakeOfMonthWrap">
         <div className="headerTitle">
           <h2>Cake of the month</h2>
           <div className="testimonialUnderLine">
@@ -33,12 +30,15 @@ const page = () => {
               <div className="lamp"></div>
               <div className="spotlight"></div>
             </div>
+            {/* <div className='cakeOfMonthConent'>
+            <img src='https://fama.b-cdn.net/RnB/combg.png' />
+          </div> */}
           </div>
         </div>
       </div>
       <MediaCollaborators />
     </>
-  );
-};
+  )
+}
 
-export default page;
+export default page
