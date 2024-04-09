@@ -22,7 +22,6 @@ const banner = () => {
   }, []);
   return (
     <>
-      <Head></Head>
       <div className="banner-wrap">
         <Container fluid>
           <div className="banner-body">

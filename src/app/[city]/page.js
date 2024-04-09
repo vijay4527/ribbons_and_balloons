@@ -30,9 +30,6 @@ const page = () => {
               <div className="lamp"></div>
               <div className="spotlight"></div>
             </div>
-            {/* <div className='cakeOfMonthConent'>
-            <img src='https://fama.b-cdn.net/RnB/combg.png' />
-          </div> */}
           </div>
         </div>
       </div>
