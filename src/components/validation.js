@@ -1,10 +1,9 @@
-// import * as yup from "yup";
+import * as yup from "yup";
 
-// // Validation schema for login
-// const loginSchema = yup.object().shape({
-//   mobile: yup.string().required("Mobile or Email is required"),
-//   // password: yup.string().required("Password is required"),
-// });
+const loginSchema = yup.object().shape({
+  mobile: yup.string().required("Mobile or Email is required"),
+  // password: yup.string().required("Password is required"),
+});
 
 // // Validation schema for registration
 // const registrationSchema = yup.object().shape({
@@ -14,4 +13,6 @@
 //   // Add more fields and validation rules for registration here
 // });
 
-// export { loginSchema, registrationSchema };
+export { loginSchema,
+    //  registrationSchema
+     };

@@ -1,19 +1,20 @@
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
- import LoginModal from "@/components/loginModal";
+import { usePathname } from "next/navigation"
+import LoginModal from "@/components/loginModal";
 import { axiosPost, axiosGet } from "@/api";
-import useUserData from "./verifyOtp";
 export default function Header(otpVerified) {
   const router = useRouter();
-  const  city  = "mumbai" ;
+  const path = usePathname()
+  const pathname = path;
+  const pathSegments = pathname.split("/");
+const city = pathSegments[1]; 
   const [isLoactionActive, setIsLoactionActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -24,10 +25,8 @@ export default function Header(otpVerified) {
   const [countCart, setCountCart] = useState(0);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-   const [hitApi, setHitApi] = useState(false);
   const [cities, setCities] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const pathname = router.pathname;
 
   const [selectedCity, setSelectedCity] = useState("");
   const loactionToggle = () => {
@@ -35,11 +34,11 @@ export default function Header(otpVerified) {
       setIsLoactionActive(!isLoactionActive);
     }
   };
-useEffect(()=>{
-  if(city){
-    setSelectedCity(city)
-  }
-},[city])
+  useEffect(() => {
+    if (city) {
+      setSelectedCity(city);
+    }
+  }, [city]);
   const toggleClass = () => {
     setIsActive(!isActive);
   };
@@ -63,10 +62,10 @@ useEffect(()=>{
   const loggedIn =
     typeof window !== "undefined" ? sessionStorage.getItem("isLoggedIn") : "";
   useEffect(() => {
-    if (loggedIn || session?.userData?.isLogin|| otpVerified==true) {
+    if (loggedIn || session?.userData?.isLogin || otpVerified == true) {
       setIsLoggedIn(true);
     }
-  }, [session, userObject?.user_id,otpVerified]);
+  }, [session, userObject?.user_id, otpVerified]);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -86,7 +85,6 @@ useEffect(()=>{
 
   const handleClick = () => {
     setIsClicked(!isClicked);
-    // searchInputRef.current.focus();
   };
   useEffect(() => {
     getCategory();
@@ -113,8 +111,6 @@ useEffect(()=>{
       console.error("Error fetching categories:", error);
     }
   };
-
-
 
   const handleMouseEnter = async (category) => {
     setHoveredCategory(category);
@@ -442,7 +438,7 @@ useEffect(()=>{
                                   alt="No image found"
                                 />
                               )}
-                              {selectedCity== "mangaluru" && (
+                              {selectedCity == "mangaluru" && (
                                 <img
                                   src="https://ribbonsandballoons.com/frontassets/images/manglore1.png"
                                   alt="No image found"
@@ -462,7 +458,9 @@ useEffect(()=>{
                                 cities.length > 0 &&
                                 cities.map((e) => (
                                   <li key={e.rnb_city_id}>
-                                    <Link href={`/${e.city_name.toLowerCase()}`} >
+                                    <Link
+                                      href={`/${e.city_name.toLowerCase()}`}
+                                    >
                                       <h4
                                         onClick={() =>
                                           setSelectedCity(e.city_name)
@@ -470,29 +468,13 @@ useEffect(()=>{
                                       >
                                         {e.city_name}
                                       </h4>
-                                      
                                     </Link>
                                     <img
-                                        src="https://static.cure.fit/assets/images/back-arrow-white.svg"
-                                        alt="No image found"
-                                      />
+                                      src="https://static.cure.fit/assets/images/back-arrow-white.svg"
+                                      alt="No image found"
+                                    />
                                   </li>
                                 ))}
-
-                              {/* <li>
-                                <h4>Mumbai</h4>
-                                <img
-                                  src="https://static.cure.fit/assets/images/back-arrow-white.svg"
-                                  alt="No image found"
-                                />
-                              </li>
-                              <li>
-                                <h4>Navi Mumbai & Thane</h4>
-                                <img
-                                  src="https://static.cure.fit/assets/images/back-arrow-white.svg"
-                                  alt="No image found"
-                                />
-                              </li> */}
                             </ul>
                           </div>
                         </div>
@@ -590,14 +572,12 @@ useEffect(()=>{
             </div>
           </Container>
         </Navbar>
-
         <div className="mob_backdrop">
           <div
             className={`  ${isActive ? "modal-backdrop fade show" : ""}`}
             onClick={toggleClass}
           ></div>
         </div>
-
         {!isLoggedIn && (
           <LoginModal
             isOpen={isLoginModalOpen}

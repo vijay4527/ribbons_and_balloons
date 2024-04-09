@@ -23,12 +23,12 @@ const page = ({params}) => {
   const [isCityModalOpen, setCityModalOpen] = useState(false);
   const  city  = params.city;
 
-  useEffect(() => {
-    if (session && session?.user) {
-      console.log(session);
-      setHitApi(true);
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session && session?.user) {
+  //     console.log(session);
+  //     setHitApi(true);
+  //   }
+  // }, [session]);
   var userInfo =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
