@@ -1,22 +1,40 @@
-"use client"
-import React from 'react'
-import { useRouter } from 'next/navigation'
-const page = ({params}) => {
-  const city = params.city
-  const router = useRouter()
-  if(typeof window !== "undefined"){
-    if(city){
-      router.push("/"+city)
-  
-    }else{
-      router.push("/mumbai")
-  
-    }
+
+import React from 'react';
+import { redirect } from 'next/navigation'
+
+const Page = (city) => {
+
+  if (city !== "") {
+    return {
+      redirect: {
+        destination: `/${city}`,
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      redirect: {
+        destination: "/mumbai",
+        permanent: false,
+      },
+    };
   }
- 
+};
+
+const page = async({params})=>{
+  const city = params.city || ""; 
+
+  const  data = await Page(city)
+  if(data){
+    redirect("/mumbai")
+  }else{
+    redirect("/mumbai")
+
+  }
   return (
-    <div></div>
+    <></>
   )
 }
 
-export default page
+export default page;
+
