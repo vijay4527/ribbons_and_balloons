@@ -10,7 +10,6 @@ const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
 });
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Prociono } from "next/font/google";
 const optionsMedia = {
     items: 5,
     loop: true,
@@ -37,7 +36,6 @@ const mediaCollaborators = () => {
     }, [session,isMounted]);
   return (
     <>
-
     <div className="mediaCollabWrap">
         <Container fluid>
           <div className="testimonialsBody">
