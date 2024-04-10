@@ -572,7 +572,7 @@ export default function Header(otpVerified) {
                           prefetch={true}
                         >
                           <span className="SvgIcons">
-                            <i class="fa fa-heart"></i>
+                            <i className="fa fa-heart"></i>
                           </span>
                         </Link>
                       </li>
