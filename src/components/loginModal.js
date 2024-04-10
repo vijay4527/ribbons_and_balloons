@@ -1,7 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { axiosPost } from "@/api";
