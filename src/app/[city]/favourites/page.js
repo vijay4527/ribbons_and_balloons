@@ -1,28 +1,23 @@
 "use client"
-import React from "react";
+import React from 'react'
 import { useEffect, useState } from "react";
 import styles from "@/app/[city]/cart/page.module.css";
 import homeStyles from "@/app/home.module.css";
 import { useRouter } from "next/navigation";
-import LoginModal from "@/components/loginModal";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { axiosGet, axiosPost, axiosGetAll } from "@/api";
+import { useSession} from "next-auth/react";
+import {  axiosPost } from "@/api";
 import AppConfig from "@/AppConfig";
 import Head from "next/head";
 import ServingInfo from "@/components/ServingInfo";
 import OrderSummary from "@/components/OrderSummary";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const page = ({params}) => {
-  const { data: session, status } = useSession();
-  const [cart, setCart] = useState([]);
-  const [grandTotal, setGrandTotal] = useState(0);
-  const router = useRouter();
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [isCityModalOpen, setCityModalOpen] = useState(false);
-  const  city  = params.city;
-  var userInfo =
+    const { data: session, status } = useSession();
+    const [cart, setCart] = useState([]);
+    const router = useRouter();
+    const  city  = params.city;
+    var userInfo =
     typeof window !== "undefined"
       ? JSON.parse(sessionStorage.getItem("userData"))
       : "";
@@ -49,7 +44,7 @@ const page = ({params}) => {
           cart_id: cartId ? cartId : "",
           user_id: userObject ? userObject.user_id : "",
           city_name: city ? city : "",
-          type: "AC",
+          type: "WL",
         };
         const response = await axiosPost("/CartMaster/GetCartDetails", obj);
         if (response) {
@@ -61,86 +56,42 @@ const page = ({params}) => {
     }
   };
 
-  const removeFromCart = async (cpId, itemCost) => {
-    const response = await axiosGet(`/CartMaster/RemoveCart/${cpId}`);
-    if (response.resp == true) {
-      var newPrice = grandTotal - itemCost;
-      setGrandTotal(newPrice);
-      if (cart.length == 1) {
-        try {
-          sessionStorage.removeItem("cartId");
-          cartId = "";
-        } catch (error) {
-          console.error("Error removing cartId from session storage:", error);
-        }
-      }
-      GetAllCart();
-    }
-  };
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      const total = cart.reduce((accumulator, item) => {
-        return accumulator + item.cost;
-      }, 0);
-      setGrandTotal(total);
-    }
-  }, [cart]);
 
 
-  const handleProducts = () => {
-    if (!isUserLoggedIn || !userInfo) {
-      setCityModalOpen(true);
-    } else if (userInfo && cart.length > 0) {
-      router.push(`/${city}/checkout`);
-    } else if (cart.length === 0) {
-      toast(
-        "You have no products in your cart! Please select products before checkout",
-        { autoClose: 2000, closeButton: true }
-      );
-    }
-  };
-
-  const closeCityModal = () => {
-    console.log("Closing modal");
-    setCityModalOpen(false);
-  };
-
-  const addToFavourite = async (data) => {
+  const addToCart = async(item)=>{
     try {
-      const favouriteData = await axiosPost(
-        "/CartMaster/SaveCartDetails",
-        productData
-      );
-      if (favouriteData.resp == true) {
-        toast("Product added to favourites", {
-          autoClose: 3000,
-          closeButton: true,
-        });
+        const cartItem = {
+          user_id: userObject ? userObject.user_id : "",
+          cart_id: cartId ? cartId : "",
+          product_id: item.product_id,
+          variety_id: item.variety_id,
+          city: city,
+          unit: item.unit,
+          value: item.value.toString(),
+          msg_cake: item.msg_cake,
+          type: "AC",
+        };
+        const response = await axiosPost(`/CartMaster/SaveCartDetails`, cartItem);
+        if (response.resp == true) {
+          if (!cartId) {
+            sessionStorage.setItem("cartId", response.respObj.cart_id);
+          }
+          setTimeout(() => {
+            router.push(`/${city}/cart`);
+          }, 3000);
+        }
+      } catch (error) {
+       
+        console.error("Error storing cartId in session storage:", error);
       }
-    } catch (error) {
-      console.log("error while adding product to favourites", error);
-    }
-  };
+  }
   return (
-    <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        ></meta>
-        <link
-          rel="icon"
-          href="https://ribbonsandballoons.com/frontassets/images/fav.png"
-          type="image/x-icon"
-        />
-      </Head>
-      <div className={styles.cartMainWrap} id={styles.title}>
+    <div className={styles.cartMainWrap} id={styles.title}>
         <div className={homeStyles["container_fluid"]}>
           <div>
-            <div className={styles.cartHeading}>Your Shopping Cart</div>
+            <div className={styles.cartHeading}>Your Favourites</div>
             <hr className={styles.cartHrDivider}></hr>
-            <div className={styles.cartTotalCount}>{cart.length} Products</div>
+            <div className={styles.cartTotalCount}>{cart.length} Products in Your Favourites List</div>
             <div className={styles.cartMainBody}>
               <div>
                 <div className={styles.cartBoxItems}>
@@ -187,9 +138,9 @@ const page = ({params}) => {
                             </div>
                             <div
                               className={styles.cartBoxButtonAction}
-                              onClick={() => addToFavourite(item)}
+                              onClick={() => addToCart(item)}
                             >
-                              Move to favourites
+                              Add To Cart
                             </div>
                           </div>
                         </div>
@@ -210,7 +161,6 @@ const page = ({params}) => {
                   <OrderSummary data={cart} />
                   <button
                     className={`${homeStyles["btn"]} ${homeStyles["btn-primary"]}`}
-                    onClick={handleProducts}
                   >
                     <span>Checkout</span>
                   </button>
@@ -219,17 +169,16 @@ const page = ({params}) => {
             </div>
           </div>
         </div>
-        {!isUserLoggedIn && (
+        {/* {!isUserLoggedIn && (
           <LoginModal
             isOpen={isCityModalOpen}
             onRequestClose={closeCityModal}
             closeLoginModal={closeCityModal}
           />
-        )}
+        )} */}
         <ToastContainer />
       </div>
-    </>
-  );
-};
+  )
+}
 
-export default page;
+export default page
