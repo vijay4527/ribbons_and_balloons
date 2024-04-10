@@ -36,19 +36,7 @@ const testimonial = () => {
   }, [session, isMounted]);
   return (
     <>
-      <Head>
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
-        
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>{" "}
-      </Head>
+     
       <div className="testimonialsWrap">
         <Container fluid>
           <div className="testimonialsBody">
