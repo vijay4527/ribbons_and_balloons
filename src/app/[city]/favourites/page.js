@@ -147,7 +147,7 @@ const page = ({params}) => {
                       ))}
                     </>
                   ) : (
-                    <h1>Your Cart is Empty!</h1>
+                    <h1>You have no Products in your Favourite</h1>
                   )}
                 </div>
               </div>

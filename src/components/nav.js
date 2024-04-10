@@ -6,15 +6,15 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 import LoginModal from "@/components/loginModal";
 import { axiosPost, axiosGet } from "@/api";
 export default function Header(otpVerified) {
   const router = useRouter();
-  const path = usePathname()
+  const path = usePathname();
   const pathname = path;
   const pathSegments = pathname.split("/");
-const city = pathSegments[1]; 
+  const city = pathSegments[1];
   const [isLoactionActive, setIsLoactionActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -563,6 +563,17 @@ const city = pathSegments[1];
                               {countCart}
                             </span>
                           )}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href={`/${city}/favourites`}
+                          className="cartButton"
+                          prefetch={true}
+                        >
+                          <span className="SvgIcons">
+                            <i class="fa fa-heart"></i>
+                          </span>
                         </Link>
                       </li>
                     </ul>
