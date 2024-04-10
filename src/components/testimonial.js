@@ -46,6 +46,7 @@ const testimonial = () => {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
+        
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>{" "}
       </Head>
       <div className="testimonialsWrap">
