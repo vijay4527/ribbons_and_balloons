@@ -25,6 +25,10 @@ export default function RootLayout({ children,session }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         ></link>
+          <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      />
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       </head>
       <body className={inter.className}>
